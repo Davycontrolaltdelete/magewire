@@ -1,0 +1,22 @@
+name: Integration Tests
+on: [push, pull_request]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - PHP_VERSION: php82-fpm
+            MAGENTO_VERSION: 2.4.6
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Start Docker
+        run: docker run --detach --name magento-project-community-edition michielgerritsen/magento-project-community-edition:${{ matrix.PHP_VERSION }}-magento${{ matrix.MAGENTO_VERSION }}
+
+      - name: Remove version from composer.json
+        run: sed -i '/version/d' ./composer.json
+
+      - name: Install Hyva
+        run: docker exec magento-project-community-edition ./retry "composer require hyva-themes/magento2-compat-module hyva-themes/magento2-default-theme hyva-themes/magento2-hyva-checkout && \ bin/magento setup:upgrade && \ magerun2 config:store:set design/theme/theme_id 3 --scope=default --scope-id=0 && \ magerun2 config:store:set design/theme/theme_id 5 --scope=stores --scope-id=1 && \ bin/magento config:set general/region/display_all 0 && \ bin/magento config:set hyva_themes_checkout/general/checkout default"

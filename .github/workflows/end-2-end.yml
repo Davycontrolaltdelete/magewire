@@ -18,7 +18,7 @@ jobs:
       - name: Add SSH key to known_hosts
         run: |
           ssh-keyscan -H gitlab.hyva.io >> ~/.ssh/known_hosts
-          ssh-keyscan -t gitlab.hyva.io >> ~/.ssh/known_hosts
+          ssh-keyscan -t rsa gitlab.hyva.io >> ~/.ssh/known_hosts
           git clone --mirror -- 'git@gitlab.hyva.io:hyva-checkout/checkout.git'
 
       - name: Checkout code

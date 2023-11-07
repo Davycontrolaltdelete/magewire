@@ -29,3 +29,11 @@ jobs:
           docker exec magento-project-community-edition ./retry "bin/magento setup:upgrade"
           docker exec magento-project-community-edition ./retry "magerun2 config:store:set design/theme/theme_id 3 --scope=default --scope-id=0 && magerun2 config:store:set design/theme/theme_id 5 --scope=stores --scope-id=1"
           docker exec magento-project-community-edition ./retry "bin/magento config:set general/region/display_all 0 && bin/magento config:set hyva_themes_checkout/general/checkout default"
+
+      - name: Upload the code into the docker container
+        run: |
+          docker cp $(pwd) magento-project-community-edition:/data/extensions/
+          docker exec magento-project-community-edition ./install-composer-package magewirephp/magewire:@dev magewirephp/magewire-examples
+
+      - name: Check webserver
+        run: curl -vvv http://localhost

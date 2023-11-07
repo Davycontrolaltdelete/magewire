@@ -15,6 +15,10 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Add SSH key to known_hosts
+        run: |
+          ssh-keyscan -H gitlab.hyva.io >> ~/.ssh/known_hosts
+
       - name: Checkout code
         uses: actions/checkout@v2
 

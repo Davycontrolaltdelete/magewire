@@ -43,8 +43,17 @@ jobs:
       - name: Check webserver
         run: curl --fail-with-body -vvv http://localhost:8080
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
       - name: Run Playwright tests
-        uses: magewire/tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
         with:
-            browser: chrome
-            config: baseUrl=http://localhost:8080,defaultCommandTimeout=60000
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30

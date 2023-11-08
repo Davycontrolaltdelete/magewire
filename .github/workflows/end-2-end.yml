@@ -28,6 +28,10 @@ jobs:
           docker exec magento-project-community-edition ./retry "composer require hyva-themes/magento2-default-theme"
           docker exec magento-project-community-edition ./retry "bin/magento setup:upgrade"
           
+          echo "application:\n\tcheck-root-user: false" > .n98-magerun.yaml
+          cat .n98-magerun.yaml
+          docker cp .n98-magerun.yaml magento-project-community-edition:/data/.n98-magerun.yaml
+          
           OUTPUT_THING=$(docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json")
           
           echo "OUTPUT $OUTPUT_THING OUTPUTEND"

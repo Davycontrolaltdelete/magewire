@@ -29,10 +29,10 @@ jobs:
           docker exec magento-project-community-edition ./retry "bin/magento setup:upgrade"
           
           OUTPUT_THING=$(docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json --skip-root-check")
-          docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json  | jq -r '.[] | select(.code == \"Hyva\\/default\") | .id'"
-          
-          
           echo "OUTPUT $OUTPUT_THING OUTPUTEND"
+          docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json --skip-root-check | jq -r '.[] | select(.code == \"Hyva\\/default\") | .id'"
+          
+          
           docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json --skip-root-check"
           docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json --skip-root-check | jq -r '.[] | select(.code == \"Hyva/default\") | .id'"
           docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json --skip-root-check | jq -r '.[] | select(.code == \"Hyva\\/default\") | .id'"

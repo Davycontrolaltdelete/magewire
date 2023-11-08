@@ -44,7 +44,7 @@ jobs:
         run: curl --fail-with-body -vvv http://localhost:8080
 
       - name: Run Playwright tests
-        uses: tests
+        uses: magewire/tests
         with:
             browser: chrome
             config: baseUrl=http://localhost:8080,defaultCommandTimeout=60000

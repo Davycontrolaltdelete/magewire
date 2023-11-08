@@ -2,7 +2,7 @@ name: Integration and Playwright Tests
 on: [push, pull_request]
 
 jobs:
-  integration-tests:
+  end-2-end-tests:
     strategy:
       matrix:
         include:
@@ -43,31 +43,26 @@ jobs:
         - name: Check webserver
           run: curl --fail-with-body -vvv http://localhost:8080
 
-  playwright-tests:
-    needs: integration-tests
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
+        - name: Install Node.js
+          uses: actions/setup-node@v3
+          with:
+            node-version: 18
 
-      - name: Check out code
-        uses: actions/checkout@v2
+        - name: Check out code
+          uses: actions/checkout@v2
 
-      - name: Install dependencies
-        run: npm install
+        - name: Install dependencies
+          run: npm install
 
-      - name: install playwright
-        run: npx playwright install
+        - name: install playwright
+          run: npx playwright install
 
-      - name: Run Playwright tests
-        run: npx playwright test
+        - name: Run Playwright tests
+          run: npx playwright test
 
-      - uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+        - uses: actions/upload-artifact@v2
+          if: always()
+          with:
+            name: playwright-report
+            path: playwright-report/
+            retention-days: 30

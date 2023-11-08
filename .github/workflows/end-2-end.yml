@@ -56,11 +56,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: install playwright
-        run: npx playwright install
-
       - name: Install dependencies
         run: npm install
+
+      - name: install playwright
+        run: npx playwright install
 
       - name: Run Playwright tests
         run: npx playwright test

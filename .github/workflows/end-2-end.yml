@@ -26,8 +26,10 @@ jobs:
           docker exec magento-project-community-edition sh -c "ssh-keyscan -t rsa gitlab.hyva.io >> ~/.ssh/known_hosts"
           docker exec magento-project-community-edition ./retry "composer config repositories.hyva-themes/magento2-theme-module git git@gitlab.hyva.io:hyva-themes/magento2-theme-module.git && composer config repositories.hyva-themes/magento2-reset-theme git git@gitlab.hyva.io:hyva-themes/magento2-reset-theme.git && composer config repositories.hyva-themes/magento2-email-module git git@gitlab.hyva.io:hyva-themes/magento2-email-module.git && composer config repositories.hyva-themes/magento2-default-theme git git@gitlab.hyva.io:hyva-themes/magento2-default-theme.git"
           
+          THEME_ID=$(docker exec magento-project-community-edition sh -c "dev:theme:list |grep Hyva/default | awk '{ print $2 }'")
+          echo "Hyvä has theme ID $THEME_ID"
           docker exec magento-project-community-edition ./retry "bin/magento setup:upgrade"
-          docker exec magento-project-community-edition ./retry "magerun2 config:store:set design/theme/theme_id 3 --scope=default --scope-id=0 && magerun2 config:store:set design/theme/theme_id 5 --scope=stores --scope-id=1"
+          docker exec magento-project-community-edition ./retry "magerun2 config:store:set design/theme/theme_id $THEME_ID --scope=default --scope-id=0 && magerun2 config:store:set design/theme/theme_id $THEME_ID --scope=stores --scope-id=1"
           docker exec magento-project-community-edition ./retry "bin/magento config:set general/region/display_all 0"
 
       - name: Upload the code into the docker container
@@ -38,4 +40,4 @@ jobs:
           docker exec magento-project-community-edition composer require --no-plugins --no-interaction magewirephp/magewire-examples:@dev
 
       - name: Check webserver
-        run: curl -vvv http://localhost:8080
+        run: curl --fail-with-body -vvv http://localhost:8080

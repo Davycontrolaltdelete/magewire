@@ -33,6 +33,7 @@ jobs:
       - name: Upload the code into the docker container
         run: |
           docker cp $(pwd) magento-project-community-edition:/data/extensions/
+          docker exec magento-project-community-edition sh -c "jq '. + {replace: {\"magewirephp/magewire\": \"1.99.0\"}}' composer.json > temp.json && mv temp.json composer.json"
           docker exec magento-project-community-edition composer require --no-plugins --no-interaction magewirephp/magewire:@dev
           docker exec magento-project-community-edition composer require --no-plugins --no-interaction magewirephp/magewire-examples:@dev
 

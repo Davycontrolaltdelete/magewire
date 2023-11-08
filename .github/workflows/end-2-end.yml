@@ -19,7 +19,7 @@ jobs:
         - name: Remove version from composer.json
           run: sed -i '/version/d' ./composer.json
 
-        - name: Install Hyva
+        - name: Install Hyvä & prepare Magento
           run: |
                 docker exec magento-project-community-edition sh -c "mkdir -p ~/.ssh/ && echo \"${{ secrets.SSH_PRIVATE_KEY }}\" > ~/.ssh/id_ed25519"
                 docker exec magento-project-community-edition sh -c "chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_ed25519"

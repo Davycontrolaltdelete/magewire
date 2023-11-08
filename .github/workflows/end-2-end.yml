@@ -29,7 +29,6 @@ jobs:
           docker exec magento-project-community-edition ./retry "bin/magento setup:upgrade"
           
           docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json"
-          docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json | jq -r '.[] | select(.code == "Hyva/default") | .id'"
           docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json | jq -r '.[] | select(.code == "Hyva\/default") | .id'"
           THEME_ID=$(docker exec magento-project-community-edition sh -c "magerun2 dev:theme:list --format=json | jq -r '.[] | select(.code == "Hyva/default") | .id'")
           echo "Hyvä has theme ID $THEME_ID"

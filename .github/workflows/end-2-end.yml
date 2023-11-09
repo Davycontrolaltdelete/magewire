@@ -11,14 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Checkout code
-          uses: actions/checkout@v2
+          uses: actions/checkout@v3
 
         - name: Start Docker
           run: docker run --detach -p 8080:80 --name magento-project-community-edition michielgerritsen/magento-project-community-edition:${{ matrix.PHP_VERSION }}-magento${{ matrix.MAGENTO_VERSION }}
 
         - name: Change the version in composer.json so we can install the examples
           run: |
-            sed -i '' 's/"version": "[0-9]+\.[0-9]+\.[0-9]+"/"version": "1.99.0"/' composer.json
+            sed -i -E 's/"version": "[0-9]+\.[0-9]+\.[0-9]+"/"version": "1.99.0"/' composer.json
 
         - name: Install Hyvä & prepare Magento
           run: |

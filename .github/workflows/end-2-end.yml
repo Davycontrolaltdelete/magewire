@@ -44,8 +44,8 @@ jobs:
         - name: Check webserver
           run: curl --fail-with-body -vvv http://localhost:8080
 
-#        - name: Setup upterm session
-#          uses: lhotari/action-upterm@v1
+        - name: Setup upterm session
+          uses: lhotari/action-upterm@v1
 
         - name: Install Node.js
           uses: actions/setup-node@v3

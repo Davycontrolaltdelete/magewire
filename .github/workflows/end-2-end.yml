@@ -40,6 +40,8 @@ jobs:
                 docker exec magento-project-community-edition sh -c "jq '. + {replace: {\"magewirephp/magewire\": \"1.99.0\"}}' composer.json > temp.json && mv temp.json composer.json"
                 docker exec magento-project-community-edition composer require --no-plugins --no-interaction magewirephp/magewire:@dev
                 docker exec magento-project-community-edition composer require --no-plugins --no-interaction magewirephp/magewire-examples:@dev
+                docker exec magento-project-community-edition ./retry "bin/magento setup:upgrade"
+                docker exec magento-project-community-edition ./retry "bin/magento cache:flush"
 
         - name: Check webserver
           run: curl --fail-with-body -vvv http://localhost:8080

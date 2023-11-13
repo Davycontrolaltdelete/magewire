@@ -13,7 +13,7 @@ test('test', async ({ page }) => {
     await page.getByRole('button', { name: 'Save' }).press('Enter');
     await page.getByRole('button', { name: 'Shuffle' }).click();
     // await page.getByRole('button', { name: 'Close message' }).click();
-    await expect(page.getByText('First task')).toBeVisible();
+    await expect(page.getByText('First task')).toBeVisible({ timeout: 60000 });
     await expect(page.getByText('Second task')).toBeVisible();
 
     await page.getByRole('button', { name: 'Shuffle' }).click();

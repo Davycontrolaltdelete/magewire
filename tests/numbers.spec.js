@@ -5,12 +5,19 @@ test('test', async ({ page }) => {
 
     await page.waitForTimeout(2000);
 
+
+
+    let number = page.locator('#reacticon');
+    let button = page.getByRole('button', { name: '+1' });
+    let button2 = page.getByRole('button', { name: '+7' });
+
+
 const {expect} = require("@playwright/test");
-await page.locator('#reacticon').getByText('1', { exact: true }).click();
+await number.getByText('1', { exact: true }).click();
 await page.getByRole('button', { name: '+1' }).click();
-await page.locator('#reacticon').getByText('2').click();
+await number.getByText('2').click();
 await page.getByRole('button', { name: '−1' }).click();
-await page.locator('#reacticon').getByText('1', { exact: true }).click();
+await number.getByText('1', { exact: true }).click();
 await page.getByLabel('Show configuration').check();
 await page.getByPlaceholder('number').click();
 await page.getByPlaceholder('number').fill('7');

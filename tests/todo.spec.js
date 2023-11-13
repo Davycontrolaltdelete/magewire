@@ -4,16 +4,19 @@ test('test', async ({ page }) => {
     await page.goto('/magewire/examples');
 
 
-    await page.getByPlaceholder('Task Description...').click();
-    await page.getByPlaceholder('Task Description...').fill('First task');
-    await page.getByPlaceholder('Task Description...').press('Enter');
+    let byPlaceholder = page.getByPlaceholder('Task Description...');
+    await byPlaceholder.click();
+    await byPlaceholder.fill('First task');
+    await byPlaceholder.press('Enter');
+
     await page.getByRole('button', { name: 'Save' }).click();
-    await expect(page.getByText('First task')).toBeVisible();
-    await page.getByPlaceholder('Task Description...').click();
-    await page.getByPlaceholder('Task Description...').fill('Second task');
-    await page.getByPlaceholder('Task Description...').press('Tab');
+    await byPlaceholder.click();
+    await byPlaceholder.fill('Second task');
+    await byPlaceholder.press('Tab');
     await page.getByRole('button', { name: 'Save' }).press('Enter');
+    await page.getByRole('button', { name: 'Shuffle' }).click();
     // await page.getByRole('button', { name: 'Close message' }).click();
+    await expect(page.getByText('First task')).toBeVisible();
     await expect(page.getByText('Second task')).toBeVisible();
 
     await page.getByRole('button', { name: 'Shuffle' }).click();

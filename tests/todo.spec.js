@@ -11,9 +11,9 @@ test('test', async ({ page }) => {
     await page.getByPlaceholder('Task Description...').fill('Second task');
     await page.getByPlaceholder('Task Description...').press('Tab');
     await page.getByRole('button', { name: 'Save' }).press('Enter');
-    await page.getByRole('button', { name: 'Shuffle' }).click();
+    await page.getByRole('button', { name: 'Shuffle' }).click({ timeout: 120000 });
     // await page.getByRole('button', { name: 'Close message' }).click();
-    await expect(page.getByText('First task')).toBeVisible({ timeout: 60000 });
+    await expect(page.getByText('First task')).toBeVisible();
     await expect(page.getByText('Second task')).toBeVisible();
 
     await page.getByRole('button', { name: 'Shuffle' }).click();

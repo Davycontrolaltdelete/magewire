@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('test', async ({ page }) => {
-    await page.goto('http://localhost:8080/magewire/examples');
+    await page.goto('/magewire/examples');
 
 
     await page.getByPlaceholder('Task Description...').click();

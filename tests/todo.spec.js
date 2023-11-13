@@ -3,7 +3,6 @@ const { test, expect } = require('@playwright/test');
 test('test', async ({ page }) => {
     await page.goto('http://localhost:8080/magewire/examples');
 
-    await page.waitForTimeout(2000);
 
     await page.getByPlaceholder('Task Description...').click();
     await page.getByPlaceholder('Task Description...').fill('First task');

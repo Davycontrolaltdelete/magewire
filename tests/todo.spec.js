@@ -3,20 +3,22 @@ const { test, expect } = require('@playwright/test');
 test('test', async ({ page }) => {
     await page.goto('http://localhost:8080/magewire/examples');
 
+    await page.waitForTimeout(2000);
+
     await page.getByPlaceholder('Task Description...').click();
     await page.getByPlaceholder('Task Description...').fill('First task');
     await page.getByPlaceholder('Task Description...').press('Enter');
     await page.getByRole('button', { name: 'Save' }).click();
-    await expect(page.getByText('First task')).toBeVisible({ timeout: 120000 });
+    await expect(page.getByText('First task')).toBeVisible();
     await page.getByPlaceholder('Task Description...').click();
     await page.getByPlaceholder('Task Description...').fill('Second task');
     await page.getByPlaceholder('Task Description...').press('Tab');
     await page.getByRole('button', { name: 'Save' }).press('Enter');
     // await page.getByRole('button', { name: 'Close message' }).click();
-
     await expect(page.getByText('Second task')).toBeVisible();
 
     await page.getByRole('button', { name: 'Shuffle' }).click();
+
     //     await page.getByRole('cell', { name: '2' }).toBeVisible();
     //     await page.getByRole('button', { name: '»' }).click();
     // await page.getByRole('cell', { name: '10', exact: true }).nth(1).toBeVisible();

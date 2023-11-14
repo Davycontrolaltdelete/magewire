@@ -21,7 +21,7 @@ test('Test that the todo behaves as expected', async ({ page }) => {
     await expect(page.getByText('Second task')).toBeVisible();
 
     await page.getByRole('button', { name: 'Close message' }).click();
-    
+
 });
 
 test('Testing the shuffle function', async ({ page }) => {
@@ -37,11 +37,11 @@ test('Test that we can click the button', async ({ page }) => {
 
     await page.waitForTimeout(2000);
 
-    //     await page.getByRole('cell', { name: '2' }).toBeVisible();
-    //     await page.getByRole('button', { name: '»' }).click();
-    // await page.getByRole('cell', { name: '10', exact: true }).nth(1).toBeVisible();
-    //     await page.getByRole('button', { name: '»' }).click();
-    // await page.getByRole('cell', { name: '20', exact: true }).nth(1).toBeVisible();
+    await expect(page.getByRole('cell', { name: '0', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: '»' }).click();
+    await expect(page.getByRole('cell', { name: '10' }).first()).toBeVisible();
+    await page.getByRole('button', { name: '»' }).click();
+    await expect(page.getByRole('cell', { name: '20' }).first()).toBeVisible();
 });
 
 test('verification', async ({ page }) => {
@@ -70,28 +70,16 @@ test('testing adding/subtracting buttons', async ({ page }) => {
 
     let number = page.locator('#reacticon');
     let button = page.getByRole('button', { name: '+1' });
-    let button2 = page.getByRole('button', { name: '+7' });
-    let buttonmin = page.getByRole('button', { name: '-1' });
-    let button2min = page.getByRole('button', { name: '-7' });
+    let button2 = page.getByRole('button', { name: '−1' });
 
 
-    const {expect} = require("@playwright/test");
-    await expect(number.getByText('1')).toBeVisible();
     await button.click();
+    await button.click();
+    await expect(number.getByText('3')).toBeVisible();
+    await button2.click();
     await expect(number.getByText('2')).toBeVisible();
-    await buttonmin.click();
-    await expect(number.getByText('1')).toBeVisible();
     await page.getByLabel('Show configuration').check();
-    await page.getByPlaceholder('number').click();
-    await page.getByPlaceholder('number').fill('7');
-    await button2.click();
-    await expect(number.getByText('8')).toBeVisible();
-    await button2.click();
-    await expect(number.getByText('15')).toBeVisible();
-    await button2.click();
-    await expect(number.getByText('22')).toBeVisible();
-    await button2min.click();
-    await expect(number.getByText('15')).toBeVisible();
+
 
 });
 

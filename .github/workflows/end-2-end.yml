@@ -45,16 +45,10 @@ jobs:
         - name: Check webserver
           run: curl --fail-with-body -vvv http://localhost:8080
 
-#        - name: Setup upterm session
-#          uses: lhotari/action-upterm@v1
-
         - name: Install Node.js
           uses: actions/setup-node@v3
           with:
             node-version: 18
-
-        - name: Check out code
-          uses: actions/checkout@v2
 
         - name: Install dependencies
           run: npm ci

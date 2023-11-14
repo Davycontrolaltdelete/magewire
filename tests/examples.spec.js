@@ -36,7 +36,7 @@ test('Testing the shuffle function', async ({ page }) => {
     await expect((await getOrder()).toString()).not.toEqual(originalOrder.toString());
 });
 
-test('Test that we can click the button', async ({ page }) => {
+test('Test that we can click the next and previous button', async ({ page }) => {
     await page.goto('/magewire/examples');
 
     await expect(page.getByRole('cell', { name: '0', exact: true })).toBeVisible();
@@ -46,6 +46,9 @@ test('Test that we can click the button', async ({ page }) => {
 
     await page.getByRole('button', { name: '»' }).click();
     await expect(page.getByRole('cell', { name: '20' }).first()).toBeVisible();
+
+    await page.getByRole('button', { name: '«' }).click();
+    await expect(page.getByRole('cell', { name: '10' }).first()).toBeVisible();
 });
 
 test('Test that input will not validate with invalid data', async ({ page }) => {

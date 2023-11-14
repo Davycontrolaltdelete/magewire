@@ -39,7 +39,9 @@ test('Testing the shuffle function', async ({ page }) => {
 test('Test that we can click the next and previous button', async ({ page }) => {
     await page.goto('/magewire/examples');
 
-    await expect(page.getByRole('cell', { name: '0', exact: true })).toBeVisible();
+    let paginationCount = page.locator('#pagination td.font-bold');
+
+    await expect(paginationCount.getByText('0', { exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: '»' }).click();
     await expect(page.getByRole('cell', { name: '10' }).first()).toBeVisible();

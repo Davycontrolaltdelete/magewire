@@ -24,7 +24,6 @@ test('Testing the shuffle function', async ({ page }) => {
 
     // Capture original order
     const originalOrder = await getOrder();
-    console.log('Original Order:', originalOrder);
 
     // Perform the action that triggers shuffling
     await page.getByRole('button', { name: 'Shuffle' }).click();
